@@ -1,0 +1,31 @@
+
+h1{
+    padding: 20px;
+    text-align: center;
+}
+.wrap{
+    display: flex;
+    justify-content: center;
+}
+.forms{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 1px 1px 10px #888888;
+}
+mat-form-field {
+    margin-right: 20px;
+}
+
+.forms1 {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+}
+
+.forms button{
+    margin-right: 10px;
+    width: 30%;
+}
