@@ -21,31 +21,29 @@
           <label for="firstDate">Data inicial</label>
           <mat-form-field id="firstDate" appearance="outline">
           <mat-label>Escolha a data inicial</mat-label>
-          <input formControlName="dataInicial" matInput [matDatepicker]="picker" />
+          <input [max]="today" formControlName="dataInicial" matInput [matDatepicker]="startPicker" [disabled]="true">
             <mat-datepicker-toggle
               matSuffix
-              [for]="picker"
+              [for]="startPicker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker #startPicker disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
         <div>
           <label for="lastDate">Data Final</label>
           <mat-form-field id="lastDate" appearance="outline">
             <mat-label>Escolha a data final</mat-label>
-            <input [min]="search.get('dataInicial')?.value"  formControlName="dataFinal"matInput [matDatepicker]="pickerFinal" />
+            <input [min]="search.get('dataInicial')?.value" [max]="today"  formControlName="dataFinal"matInput [matDatepicker]="finalPicker" [disabled]="true" />
             <mat-datepicker-toggle
               matSuffix
-              [for]="pickerFinal"
+              [for]="finalPicker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #pickerFinal></mat-datepicker>
+            <mat-datepicker #finalPicker  disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
     </form>
-      <button type="button" class="btn btn-success" (click)="sendDatas()" [disabled]="search.invalid">Consultar dados</button>
-      <button type="button" class="btn btn-primary">Atualizar dados</button>
+      <button type="button" class="btn btn-success" (click)="sendData()" [disabled]="search.invalid">  <mat-icon style="color: white ; float: left;">check</mat-icon> Consultar dados</button>
+      <button type="button" class="btn btn-primary" (click)="attData()" [disabled]="search.invalid" ><mat-icon style="color: white ; float: left;">sync</mat-icon> Atualizar dados</button>
   </div>
 </div>
-
-
