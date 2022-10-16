@@ -1,5 +1,7 @@
 export interface ApiResponse {
-    cotacaoCompra: number,
-      cotacaoVenda: number,
-      dataHoraCotacao: string
-    }
+  cotacaoCompra: number;
+  cotacaoVenda: number;
+  dataHoraCotacao: string;
+  page?:number
+}
+
