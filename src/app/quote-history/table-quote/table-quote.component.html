@@ -1,0 +1,61 @@
+<div class="wrap">
+  <div class="forms" *ngIf="apiResponse">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" (click)="sort('cotacaoCompra')">Cotação de compra</th>
+          <th scope="col" (click)="sort('cotacaoVenda')">Cotação de venda</th>
+          <th scope="col" (click)="sort('dataHoraCotacao')">data e hora</th>
+        </tr>
+        <tr>
+          <th scope="col">
+            <mat-form-field style="width: 100%" appearance="outline">
+              <mat-label>Filtrar por data e hora</mat-label>
+              <input
+                [(ngModel)]="filter.cotacaoCompra"
+                matInput
+                placeholder="Placeholder"
+              />
+            </mat-form-field>
+          </th>
+
+          <th scope="col">
+            <mat-form-field style="width: 100%" appearance="outline">
+              <mat-label>Filtrar por data e hora</mat-label>
+              <input
+                [(ngModel)]="filter.cotacaoVenda"
+                matInput
+                placeholder="Placeholder"
+              />
+            </mat-form-field>
+          </th>
+
+          <th scope="col">
+            <mat-form-field style="width: 100%" appearance="outline">
+              <mat-label>Filtrar por data e hora</mat-label>
+              <input
+                [(ngModel)]="filter.dataHoraCotacao"
+                matInput
+                placeholder="Placeholder"
+              />
+            </mat-form-field>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="
+            let item of apiResponse
+              | orderBy: orderby:direction
+              | filterBy: filter
+          "
+        >
+          <td>{{ item.cotacaoCompra }}</td>
+          <td>{{ item.cotacaoVenda }}</td>
+          <td>{{ item.dataHoraCotacao }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,12 +1,12 @@
 <h1>Histórico de cotação</h1>
-<div class="wrap ">
+<div class="wrap">
   <div class="forms container">
-    <form [formGroup]="search" >
+    <form [formGroup]="search">
       <div class="forms1">
         <div>
           <label for="moeda">Moeda</label>
           <mat-form-field id="moeda" appearance="outline">
-            <mat-label >Selecione a moeda</mat-label>
+            <mat-label>Selecione a moeda</mat-label>
             <mat-select formControlName="moeda">
               <mat-option
                 *ngFor="let item of valuesOfDropDown"
@@ -17,11 +17,17 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div> 
+        <div>
           <label for="firstDate">Data inicial</label>
           <mat-form-field id="firstDate" appearance="outline">
-          <mat-label>Escolha a data inicial</mat-label>
-          <input [max]="today" formControlName="dataInicial" matInput [matDatepicker]="startPicker" [disabled]="true">
+            <mat-label>Escolha a data inicial</mat-label>
+            <input
+              [max]="today"
+              formControlName="dataInicial"
+              matInput
+              [matDatepicker]="startPicker"
+              [disabled]="true"
+            />
             <mat-datepicker-toggle
               matSuffix
               [for]="startPicker"
@@ -33,17 +39,43 @@
           <label for="lastDate">Data Final</label>
           <mat-form-field id="lastDate" appearance="outline">
             <mat-label>Escolha a data final</mat-label>
-            <input [min]="search.get('dataInicial')?.value" [max]="today"  formControlName="dataFinal"matInput [matDatepicker]="finalPicker" [disabled]="true" />
+            <input
+              [min]="search.get('dataInicial')?.value"
+              [max]="today"
+              formControlName="dataFinal"
+              matInput
+              [matDatepicker]="finalPicker"
+              [disabled]="true"
+            />
             <mat-datepicker-toggle
               matSuffix
               [for]="finalPicker"
             ></mat-datepicker-toggle>
-            <mat-datepicker #finalPicker  disabled="false"></mat-datepicker>
+            <mat-datepicker #finalPicker disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
     </form>
-      <button type="button" class="btn btn-success" (click)="sendData()" [disabled]="search.invalid">  <mat-icon style="color: white ; float: left;">check</mat-icon> Consultar dados</button>
-      <button type="button" class="btn btn-primary" (click)="attData()" [disabled]="search.invalid" ><mat-icon style="color: white ; float: left;">sync</mat-icon> Atualizar dados</button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="sendData()"
+      [disabled]="search.invalid"
+    >
+      <mat-icon style="color: white; float: left">check</mat-icon> Consultar
+      dados
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="attData()"
+      [disabled]="(search.get('dataFinal')?.value != today)"
+    >
+      <mat-icon style="color: white; float: left">sync</mat-icon> Atualizar
+      dados
+    </button>
   </div>
 </div>
+
+<app-table-quote [apiResponse]="apiResponse"></app-table-quote>
+

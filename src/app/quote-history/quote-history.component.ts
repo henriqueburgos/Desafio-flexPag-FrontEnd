@@ -5,7 +5,7 @@ import * as moment from 'moment' ;
 import { ApiRequest } from '../Shared/models/api-request';
 import { ApiService } from '../Shared/Services/api.service';
 import { ApiResponse } from '../Shared/models/api-response';
-import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-quote-history',
@@ -15,7 +15,10 @@ import { Observable } from 'rxjs';
 export class QuoteHistoryComponent implements OnInit {
   today!:Date
   formulario!:ApiRequest
-  apiResponse!:Observable<ApiResponse[]>
+  isCollapsed = false;
+  page:number=1
+
+  apiResponse !:ApiResponse[]
 
   search = this.formBuilder.group({
     moeda: ['', Validators.required],
@@ -48,20 +51,27 @@ sendData(){
   let moeda=this.search.get('moeda')?.value
 
   this.formulario={ dataInicial,dataFinal,moeda}
-  console.log(this.formulario);
-  
-this.apiResponse=this.api.searchCurrency(this.formulario);
+   this.page=1
+this.api.searchCurrency(this.formulario).pipe(
+  tap((a=>{ 
+      this.apiResponse=a.value
+  }))
+).subscribe()
+
 }
 attData(){
-return this.formulario? console.log(this.api.searchCurrency(this.formulario).subscribe(a=>console.log(a)
-)): alert("o formulario está vazio");
+return this.formulario? this.api.searchCurrency(this.formulario).pipe(
+  tap((a=>{ 
+      this.apiResponse=a.value
+  }))
+).subscribe(): alert("o formulario está vazio");
 }
 
   constructor(private formBuilder: FormBuilder, private api:ApiService) {  }
 
   ngOnInit(): void {
     this.today=new Date()
-    
+       
   }
 
 }
