@@ -1,7 +1,7 @@
 # DESAFIO FLEXPAG FRONTEND
 
 ## Descrição
-Realizar o desenvolvimento de uma Aplicação front-end  com o objetico de realizar pesquisas de cotações da
+Desenvolver uma Aplicação front-end com o objetivo de realizar pesquisas de cotações da
 moeda BRL para a moeda selecionada pelo usuário.
 
 ## Frameworks e Tecnologias
