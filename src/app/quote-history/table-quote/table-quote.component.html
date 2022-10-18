@@ -1,8 +1,9 @@
 <div class="wrap">
   <div class="forms" *ngIf="apiResponse">
-    <div style="width: 100%;" *ngIf="apiResponse">
+    <div  [ngClass]="{'scrollTable':!pagination}" style="width: 100%;" *ngIf="apiResponse">
         <h2 style="text-align: center;"> Conversão de {{apiRequestLocal.moeda}} para BRL</h2>
-      <table *ngIf="apiResponse.length > 0; else noData" class="table">
+        <mat-slide-toggle *ngIf="apiResponse.length > 0"[(ngModel)]="pagination">Paginação</mat-slide-toggle>
+      <table  *ngIf="apiResponse.length > 0; else noData" class="table ">
         <thead>
           <tr>
             <th scope="col" (click)="sort('cotacaoCompra')">
@@ -90,7 +91,7 @@
               [(page)]="page"
               [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
               [pageSize]="pageSize"
-              (pageChange)="refreshCountries()"
+              (pageChange)="refreshAPI()"
             >
             </ngb-pagination>
   
@@ -98,7 +99,7 @@
               class="custom-select"
               style="width: auto"
               [(ngModel)]="pageSize"
-              (ngModelChange)="refreshCountries()"
+              (ngModelChange)="refreshAPI()"
             >
               <option [ngValue]="5">5 Itens por pagina</option>
               <option [ngValue]="10">10 Itens por pagina</option>
@@ -106,16 +107,7 @@
             </select>
           </div>
           
-          <select
-          id="pagination"
-          class="custom-select"
-          style="width: auto"
-          [(ngModel)]="pagination"
-        >
-          <option [ngValue]="true">Paginação ativada</option>
-          <option [ngValue]="false">Paginação desativada</option>
-         
-        </select>
+       
 
         </div>
       </div>
