@@ -1,9 +1,9 @@
 <div class="wrap">
   <div class="forms" *ngIf="apiResponse">
-    <div  [ngClass]="{'scrollTable':!pagination}" style="width: 100%;" *ngIf="apiResponse">
+    <div  class="scrollTableresponse" [ngClass]="{'scrollTable':!pagination}" style="width: 100%;" *ngIf="apiResponse">
         <h2 style="text-align: center;"> Conversão de {{apiRequestLocal.moeda}} para BRL</h2>
         <mat-slide-toggle *ngIf="apiResponse.length > 0"[(ngModel)]="pagination">Paginação</mat-slide-toggle>
-      <table  *ngIf="apiResponse.length > 0; else noData" class="table ">
+      <table  *ngIf="apiResponse.length > 0; else noData" class="table .table-responsive">
         <thead>
           <tr>
             <th scope="col" (click)="sort('cotacaoCompra')">
