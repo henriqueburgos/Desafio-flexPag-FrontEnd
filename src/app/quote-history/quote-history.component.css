@@ -35,9 +35,6 @@ mat-form-field {
     width: 30%;
 }
 
-.mat-form-field{
-   color: green;
-}
 .info{
    align-self: stretch;
     color: rgb(95, 162, 162);
@@ -46,3 +43,28 @@ mat-form-field {
     cursor: pointer;
     color: rgb(8, 193, 193);
  }
+
+ @media (max-width:1173px) {
+    .forms1 {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px;
+        align-items: center;
+    }
+    
+    .wrap{
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .label{
+        display: flex;
+    }
+    .forms{
+        display: flex;
+        flex-wrap: wrap;
+        width: 85%;
+        align-items: center;
+        border-radius: 20px;
+     
+ }}
