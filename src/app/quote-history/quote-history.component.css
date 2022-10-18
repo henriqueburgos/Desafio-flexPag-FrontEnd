@@ -8,6 +8,9 @@ h1{
     justify-content: center;
     margin-top: 20px;
 }
+.label{
+    display: flex;
+}
 .forms{
     display: flex;
     width: 85%;
@@ -17,8 +20,9 @@ h1{
     box-shadow: 1px 1px 10px #888888;
 }
 mat-form-field {
-    margin-right: 20px;
+    margin-right:10px;
 }
+
 
 .forms1 {
     display: flex;
@@ -30,3 +34,15 @@ mat-form-field {
     margin-right: 10px;
     width: 30%;
 }
+
+.mat-form-field{
+   color: green;
+}
+.info{
+   align-self: stretch;
+    color: rgb(95, 162, 162);
+}
+.info :hover{
+    cursor: pointer;
+    color: rgb(8, 193, 193);
+ }

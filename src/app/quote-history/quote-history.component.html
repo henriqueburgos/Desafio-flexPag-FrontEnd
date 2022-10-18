@@ -1,10 +1,18 @@
 <h1>Histórico de cotação</h1>
 <div class="wrap">
-  <div class="forms container">
+
+  <div class="forms ">
+  
     <form [formGroup]="search">
       <div class="forms1">
         <div>
-          <label for="moeda">Moeda</label>
+
+          <label *ngIf="search.get('moeda').invalid;else coinSuccess" for="moeda">Moeda</label>
+          <ng-template #coinSuccess>
+            <label for="moeda">Moeda   <mat-icon style="color: rgb(0, 231, 15); ">check_circle
+            </mat-icon></label>
+          </ng-template>
+       
           <mat-form-field id="moeda" appearance="outline">
             <mat-label>Selecione a moeda</mat-label>
             <mat-select formControlName="moeda">
@@ -15,12 +23,20 @@
                 {{ item.TEXT }}
               </mat-option>
             </mat-select>
+      
           </mat-form-field>
+        
         </div>
+
         <div>
-          <label for="firstDate">Data inicial</label>
+         
+          <label *ngIf="search.get('dataInicial').invalid;else startDateSuccess" for="firstDate">Data inicial</label>
+          <ng-template #startDateSuccess>
+            <label for="moeda">Data inicial  <mat-icon style="color: rgb(0, 231, 15); ">check_circle
+            </mat-icon></label>
+          </ng-template>
           <mat-form-field id="firstDate" appearance="outline">
-            <mat-label>Escolha a data inicial</mat-label>
+              <mat-label>Escolha a data inicial</mat-label>
             <input
               [max]="today"
               formControlName="dataInicial"
@@ -35,23 +51,34 @@
             <mat-datepicker #startPicker disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
+
         <div>
-          <label for="lastDate">Data Final</label>
+           
+          <label *ngIf="search.get('dataFinal').invalid;else lastDateSuccess" for="lastDate">Data final</label>
+          <ng-template #lastDateSuccess>
+            <label for="moeda">Data final  <mat-icon style="color: rgb(0, 231, 15); ">check_circle
+            </mat-icon></label>
+          </ng-template>
           <mat-form-field id="lastDate" appearance="outline">
             <mat-label>Escolha a data final</mat-label>
+
             <input
+  
               [min]="search.get('dataInicial')?.value"
               [max]="today"
               formControlName="dataFinal"
               matInput
               [matDatepicker]="finalPicker"
               [disabled]="true"
-            />
+      >
             <mat-datepicker-toggle
               matSuffix
               [for]="finalPicker"
             ></mat-datepicker-toggle>
             <mat-datepicker #finalPicker disabled="false"></mat-datepicker>
+            <mat-error *ngIf="search.get('dataFinal').hasError('matDatepickerMin')">
+             A data Minima é {{search.get('dataInicial')?.value | date }}
+            </mat-error> 
           </mat-form-field>
         </div>
       </div>
@@ -62,20 +89,24 @@
       (click)="sendData()"
       [disabled]="search.invalid"
     >
-      <mat-icon style="color: white; float: left">check</mat-icon> Consultar
-      dados
-    </button>
-    <button
+      <mat-icon style="color: white; float: left">check_circle</mat-icon>Consultar dados</button>
+    <button 
+      matTooltip="Aqui você vai atualizar a tabela para receber ou não novas cotações"
       type="button"
       class="btn btn-primary"
       (click)="attData()"
-      [disabled]="(search.get('dataFinal')?.value != today)"
+      [disabled]="search.invalid"
+      
     >
-      <mat-icon style="color: white; float: left">sync</mat-icon> Atualizar
-      dados
-    </button>
+      <mat-icon style="color: white; float: left">sync</mat-icon>Atualizar dados</button>
+    <div class="info">
+      <mat-icon (click)="tooltip.toggle()">information</mat-icon>
+      <span #tooltip="matTooltip"
+      matTooltipPosition="above"
+      matTooltip="Preencha os campos do formulario para receber uma tabela com cotações da moeda selecionada dentro do intervalo das datas selecionadas."></span>
+    </div>
   </div>
 </div>
 
-<app-table-quote [apiResponse]="apiResponse"></app-table-quote>
+<app-table-quote [apiResponse]="apiResponse" [apiRequest]="formulario"></app-table-quote>
 

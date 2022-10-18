@@ -5,6 +5,7 @@
     margin-top: 20px;
 }
 .forms{
+    justify-content: center;
     display: flex;
     width: 85%;
     align-items: center;

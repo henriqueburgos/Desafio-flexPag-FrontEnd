@@ -1,61 +1,127 @@
 <div class="wrap">
   <div class="forms" *ngIf="apiResponse">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col" (click)="sort('cotacaoCompra')">Cotação de compra</th>
-          <th scope="col" (click)="sort('cotacaoVenda')">Cotação de venda</th>
-          <th scope="col" (click)="sort('dataHoraCotacao')">data e hora</th>
-        </tr>
-        <tr>
-          <th scope="col">
-            <mat-form-field style="width: 100%" appearance="outline">
-              <mat-label>Filtrar por data e hora</mat-label>
-              <input
-                [(ngModel)]="filter.cotacaoCompra"
-                matInput
-                placeholder="Placeholder"
-              />
-            </mat-form-field>
-          </th>
+    <div style="width: 100%;" *ngIf="apiResponse">
+        <h2 style="text-align: center;"> Conversão de {{apiRequestLocal.moeda}} para BRL</h2>
+      <table *ngIf="apiResponse.length > 0; else noData" class="table">
+        <thead>
+          <tr>
+            <th scope="col" (click)="sort('cotacaoCompra')">
+              <button mat-button>Cotação de compra</button>
+            </th>
+            <th scope="col" (click)="sort('cotacaoVenda')">
+              <button mat-button>Cotação de venda</button>
+            </th>
+            <th scope="col" (click)="sort('dataHoraCotacao')">
+              <button mat-button>Data e hora da cotação</button>
+            </th>
+          </tr>
+          <tr>
+            <th scope="col">
+              <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Filtrar por cotação de compra</mat-label>
+                <input
+                  [(ngModel)]="filter.cotacaoCompra"
+                  matInput
+                  placeholder="Placeholder"
+                />
+              </mat-form-field>
+            </th>
 
-          <th scope="col">
-            <mat-form-field style="width: 100%" appearance="outline">
-              <mat-label>Filtrar por data e hora</mat-label>
-              <input
-                [(ngModel)]="filter.cotacaoVenda"
-                matInput
-                placeholder="Placeholder"
-              />
-            </mat-form-field>
-          </th>
+            <th scope="col">
+              <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Filtrar por cotação de venda</mat-label>
+                <input
+                  [(ngModel)]="filter.cotacaoVenda"
+                  matInput
+                  placeholder="Placeholder"
+                />
+              </mat-form-field>
+            </th>
 
-          <th scope="col">
-            <mat-form-field style="width: 100%" appearance="outline">
-              <mat-label>Filtrar por data e hora</mat-label>
-              <input
-                [(ngModel)]="filter.dataHoraCotacao"
-                matInput
-                placeholder="Placeholder"
-              />
-            </mat-form-field>
-          </th>
-        </tr>
-      </thead>
+            <th scope="col">
+              <mat-form-field style="width: 100%" appearance="outline">
+                <mat-label>Filtrar por data e hora</mat-label>
+                <input
+                  [(ngModel)]="filter.dataHoraCotacao"
+                  matInput
+                  type="date"
+                  placeholder="Placeholder"
+                />
+              </mat-form-field>
+            </th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr
-          *ngFor="
-            let item of apiResponse
-              | orderBy: orderby:direction
-              | filterBy: filter
-          "
+        <tbody *ngIf="pagination;else noPaginator ">
+          <tr  
+            *ngFor="
+              let item of apiResponse2
+                | orderBy: orderby:direction
+                | filterBy: filter
+            "
+          >
+            <td>{{ item.cotacaoCompra }}</td>
+            <td>{{ item.cotacaoVenda }}</td>
+            <td>{{ item.dataHoraCotacao }}</td>
+          </tr>
+        </tbody>
+        <ng-template #noPaginator>
+          <tbody>
+            <tr  
+              *ngFor="
+                let item of apiResponse
+                  | orderBy: orderby:direction
+                  | filterBy: filter
+              "
+            >
+              <td>{{ item.cotacaoCompra }}</td>
+              <td>{{ item.cotacaoVenda }}</td>
+              <td>{{ item.dataHoraCotacao }}</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+      <div>
+        <div class="d-flex justify-content-between p-2">
+          <div class="d-flex justify-content-between p-2" *ngIf="pagination">
+
+         <ngb-pagination
+              [collectionSize]="apiResponse.length"
+              [(page)]="page"
+              [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+              [pageSize]="pageSize"
+              (pageChange)="refreshCountries()"
+            >
+            </ngb-pagination>
+  
+            <select
+              class="custom-select"
+              style="width: auto"
+              [(ngModel)]="pageSize"
+              (ngModelChange)="refreshCountries()"
+            >
+              <option [ngValue]="5">5 Itens por pagina</option>
+              <option [ngValue]="10">10 Itens por pagina</option>
+              <option [ngValue]="15">15 Itens por pagina</option>
+            </select>
+          </div>
+          
+          <select
+          id="pagination"
+          class="custom-select"
+          style="width: auto"
+          [(ngModel)]="pagination"
         >
-          <td>{{ item.cotacaoCompra }}</td>
-          <td>{{ item.cotacaoVenda }}</td>
-          <td>{{ item.dataHoraCotacao }}</td>
-        </tr>
-      </tbody>
-    </table>
+          <option [ngValue]="true">Paginação ativada</option>
+          <option [ngValue]="false">Paginação desativada</option>
+         
+        </select>
+
+        </div>
+      </div>
+      <ng-template #noData>
+        <h3 style="text-align: center">Não houve variação nesse dia!</h3>
+      </ng-template>
+    </div>
   </div>
 </div>
