@@ -13,6 +13,7 @@ export class TableQuoteComponent implements OnInit {
   orderby!: string;
   direction: boolean = false;
   apiRequestLocal: ApiRequest;
+ 
 
   filter = {
     cotacaoCompra: '',
@@ -28,17 +29,17 @@ export class TableQuoteComponent implements OnInit {
   ngOnChanges() {
     console.log('mudou');
     if (this.apiResponse) {
-      this.refreshCountries();
+      this.refreshAPI();
       this.apiRequestLocal = this.apiRequest;
     }
   }
   ngOnInit(): void {}
-  pagination: boolean = true;
+  pagination: boolean = false;
   page = 1;
   pageSize = 5;
   apiResponse2: ApiResponse[];
 
-  refreshCountries() {
+  refreshAPI() {
     this.apiResponse2 = this.apiResponse
       .map((api, i) => ({ id: i + 1, ...api }))
       .slice(

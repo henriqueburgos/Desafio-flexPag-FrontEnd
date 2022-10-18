@@ -77,7 +77,7 @@
             ></mat-datepicker-toggle>
             <mat-datepicker #finalPicker disabled="false"></mat-datepicker>
             <mat-error *ngIf="search.get('dataFinal').hasError('matDatepickerMin')">
-             A data Minima é {{search.get('dataInicial')?.value | date }}
+             A data Minima é {{search.get('dataInicial')?.value | date: "dd/MM/yyyy" }}
             </mat-error> 
           </mat-form-field>
         </div>
