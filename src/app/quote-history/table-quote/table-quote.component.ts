@@ -27,7 +27,7 @@ export class TableQuoteComponent implements OnInit {
     this.direction = !this.direction;
   }
   ngOnChanges() {
-    console.log('mudou');
+
     if (this.apiResponse) {
       this.refreshAPI();
       this.apiRequestLocal = this.apiRequest;

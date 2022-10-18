@@ -40,7 +40,7 @@ export class QuoteHistoryComponent implements OnInit {
     },
     {
       ID:"USD",
-      TEXT:"Dólar Americano"
+      TEXT:"Dólar dos Estados Unidos"
     }
   ]
 
@@ -62,8 +62,7 @@ this.api.searchCurrency(this.formulario).pipe(
 
 attData(){
 this.api.attQuote(this.formulario,this.apiResponse).pipe(tap(a=>{ 
-  console.log(a)
-  console.log(this.apiResponse)
+
   this.apiResponse=a.value } )).subscribe()
 }
 
