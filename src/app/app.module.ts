@@ -8,6 +8,7 @@ import { QuoteHistoryModule } from './quote-history/quote-history.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './Shared/useful/material/material.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HotToastModule } from '@ngneat/hot-toast';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     QuoteHistoryModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
 
   ],
   providers: [],
